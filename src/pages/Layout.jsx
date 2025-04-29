@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
@@ -36,6 +34,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { config } from "../config";
 
 export default function Layout({ children, currentPageName }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -109,7 +108,7 @@ export default function Layout({ children, currentPageName }) {
     }
 
     // Get API key directly from Base44's context
-    const apiKey = "AIzaSyApz0q34FVo4wwB-wTBbAKi6snJw_itrjI"; // temporary use of the working key
+    const apiKey = config.googleMapsApiKey;
     console.log("Using Maps API key:", apiKey);
     
     // Load Google Maps script

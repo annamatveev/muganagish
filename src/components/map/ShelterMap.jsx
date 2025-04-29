@@ -11,7 +11,6 @@ export default function ShelterMap({ shelters = [], center, radius = 1000, onShe
 
   // Check if Google Maps is loaded
   useEffect(() => {
-    console.log("ShelterMap: Initial Google Maps check", { 
       isLoaded: !!window.google?.maps,
       mapElementExists: !!mapRef.current
     });
@@ -24,7 +23,6 @@ export default function ShelterMap({ shelters = [], center, radius = 1000, onShe
     // Check every 100ms if Google Maps has been loaded
     const checkGoogleMapsLoaded = setInterval(() => {
       if (window.google?.maps) {
-        console.log("ShelterMap: Google Maps loaded during check");
         setGoogleLoaded(true);
         clearInterval(checkGoogleMapsLoaded);
       }
@@ -38,11 +36,9 @@ export default function ShelterMap({ shelters = [], center, radius = 1000, onShe
   useEffect(() => {
     // Only proceed if Google Maps is loaded
     if (!googleLoaded) {
-      console.log("ShelterMap: Waiting for Google Maps to load");
       return;
     }
 
-    console.log("ShelterMap: Initializing map with Google loaded", {
       googleMapsExists: !!window.google?.maps,
       mapRef: !!mapRef.current
     });
@@ -58,8 +54,6 @@ export default function ShelterMap({ shelters = [], center, radius = 1000, onShe
     try {
       const mapCenter = center || { lat: 31.7683, lng: 35.2137 }; // Default to Israel's center
       
-      console.log("ShelterMap: Creating map with center:", mapCenter);
-
       // Create map instance
       mapInstanceRef.current = new window.google.maps.Map(mapRef.current, {
         center: mapCenter,
@@ -106,7 +100,6 @@ export default function ShelterMap({ shelters = [], center, radius = 1000, onShe
 
       // Add shelter markers
       if (shelters && shelters.length > 0) {
-        console.log("ShelterMap: Adding markers for shelters:", shelters.length);
         const bounds = new window.google.maps.LatLngBounds();
         let validMarkerCount = 0;
 
@@ -126,7 +119,6 @@ export default function ShelterMap({ shelters = [], center, radius = 1000, onShe
             return;
           }
 
-          console.log("ShelterMap: Adding marker at:", position);
           validMarkerCount++;
 
           const marker = new window.google.maps.Marker({
@@ -153,14 +145,11 @@ export default function ShelterMap({ shelters = [], center, radius = 1000, onShe
 
         // Fit bounds if no specific center and we have valid markers
         if (!center && validMarkerCount > 0) {
-          console.log("ShelterMap: Fitting bounds to markers");
           mapInstanceRef.current.fitBounds(bounds);
         }
         
-        console.log(`ShelterMap: Added ${validMarkerCount} markers out of ${shelters.length} shelters`);
       }
 
-      console.log("ShelterMap: Map initialization complete");
       setIsLoading(false);
     } catch (err) {
       console.error("ShelterMap: Map initialization error:", err);

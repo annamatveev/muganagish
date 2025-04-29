@@ -13,6 +13,16 @@ Muganagish (מוגנגיש) is a comprehensive platform designed to help people 
 
 As part of the "Code for Israel" community, Muganagish is dedicated to improving accessibility to shelters and protected spaces for people with disabilities. The platform is built using Base44, a powerful AI-powered application development platform that enables rapid and efficient creation of complex applications while focusing on user needs.
 
+## Configuration
+
+Before running the application, you need to set up your Google Maps API key:
+
+1. Create a Google Cloud project and enable the Maps JavaScript API
+2. Generate an API key with appropriate restrictions
+3. Replace the API key in `src/config.js` with your own key
+
+**Important**: Never commit your actual API key to version control. The current key in the config file is for development purposes only and should be replaced before deploying to production.
+
 ## Running the app
 
 ```bash

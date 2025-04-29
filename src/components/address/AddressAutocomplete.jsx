@@ -32,7 +32,6 @@ export default function AddressAutocomplete({ value, onChange, onLocationSelect,
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          console.log("Got position:", position.coords);
           // Use reverse geocoding to get address from coordinates
           if (window.google && window.google.maps) {
             const geocoder = new window.google.maps.Geocoder();
@@ -41,14 +40,12 @@ export default function AddressAutocomplete({ value, onChange, onLocationSelect,
               lng: position.coords.longitude
             };
             
-            console.log("Using coordinates for geocoding:", latlng);
             
             geocoder.geocode({ 
               location: latlng,
               region: 'IL',
               language: 'he'
             }, (results, status) => {
-              console.log("Geocoder results:", status, results);
               if (status === "OK" && results[0]) {
                 const address = results[0].formatted_address;
                 onChange(address);
@@ -67,7 +64,6 @@ export default function AddressAutocomplete({ value, onChange, onLocationSelect,
               setIsSearching(false);
             });
           } else {
-            console.log("Google Maps not available, using coordinates directly");
             // If Google Maps isn't loaded, just use the coordinates
             if (onLocationSelect) {
               onLocationSelect({
@@ -159,7 +155,6 @@ export default function AddressAutocomplete({ value, onChange, onLocationSelect,
               lng: place.geometry.location.lng()
             };
             
-            console.log("Selected location with coordinates:", location);
             onChange(location.address);
             
             if (onLocationSelect) {
